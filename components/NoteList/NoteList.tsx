@@ -74,16 +74,14 @@ export default function NoteList({
             <div className={css.footer}>
               
               <div className={css.tagsContainer}>
-                {n.tags?.length > 0 ? (
-                  n.tags.map((t) => (
-                    <span key={t} className={css.tag} title={t}>
-                      {t}
-                    </span>
-                  ))
-                ) : (
-                  <span className={css.tag}>No tag</span>
-                )}
-              </div>
+  {n.tag ? (
+    <span className={css.tag} title={n.tag}>
+      {n.tag}
+    </span>
+  ) : (
+    <span className={css.tag}>No tag</span>
+  )}
+</div>
 
               <div style={{ display: "flex", gap: 8 }}>
                 <Link className={css.link} href={`/notes/${n.id}`}>

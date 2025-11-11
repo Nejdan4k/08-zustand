@@ -1,37 +1,29 @@
-"use client";
-
-import { useRouter } from "next/navigation";
-import { useQuery } from "@tanstack/react-query";
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from "@tanstack/react-query";
 import { fetchNoteById } from "@/lib/api";
-import type { Note } from "@/types/note";
-import Modal from "@/components/Modal/Modal";
-import NotePreview from "@/components/NotePreview/NotePreview";
+import NotePreviewClient from "./NotePreview.client";
 
-export default function NoteModalPage({ params }: { params: { id: string } }) {
-  const router = useRouter();
+export default async function NoteModalPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
 
-  const { data, isLoading, isError, error } = useQuery<Note>({
-    queryKey: ["note", params.id],
-    queryFn: () => fetchNoteById(params.id),
-    refetchOnMount: false,
+  const qc = new QueryClient();
+
+  
+  await qc.prefetchQuery({
+    queryKey: ["note", id],
+    queryFn: () => fetchNoteById(id),
   });
 
   return (
-    <Modal open onClose={() => router.back()}>
-      {isLoading ? (
-        <p style={{ padding: 16 }}>Loading, please wait...</p>
-      ) : isError ? (
-        <div style={{ padding: 16 }}>
-          <button onClick={() => router.back()} aria-label="Close">
-            ← Back
-          </button>
-          <p style={{ color: "#b91c1c" }}>
-            {(error as Error)?.message ?? "Failed to load note"}
-          </p>
-        </div>
-      ) : (
-        <NotePreview note={data ?? null} onBack={() => router.back()} />
-      )}
-    </Modal>
+    <HydrationBoundary state={dehydrate(qc)}>
+      <NotePreviewClient id={id} />
+    </HydrationBoundary>
   );
 }

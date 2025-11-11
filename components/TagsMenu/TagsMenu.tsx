@@ -51,6 +51,7 @@ export default function TagsMenu() {
               tag === "All"
                 ? "/notes/filter/all"
                 : `/notes/filter/${tag.toLowerCase()}`;
+
             return (
               <li key={tag} className={css.menuItem} role="none">
                 <Link
