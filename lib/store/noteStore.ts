@@ -18,7 +18,7 @@ interface NoteStore {
 const initialDraft: Draft = {
   title: "",
   content: "",
-  tag: "Todo", 
+  tag: "Todo", // виправлено: було "Work"
 };
 
 export const useNoteStore = create<NoteStore>()(
@@ -31,7 +31,7 @@ export const useNoteStore = create<NoteStore>()(
     }),
     {
       name: "note-draft-storage",
-      partialize: (state) => ({ draft: state.draft }), 
+      partialize: (state) => ({ draft: state.draft }), //  зберігається лише draft
     }
   )
 );

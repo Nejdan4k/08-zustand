@@ -17,7 +17,7 @@ export async function generateMetadata({
   const title = `NoteHub — ${filterName}`;
   const description = `Browse your ${filterName.toLowerCase()} in NoteHub.`;
   const url = `${
-    process.env.NEXT_PUBLIC_SITE_URL ?? "http:
+    process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"
   }/notes/filter/${tag}`;
 
   return {
@@ -29,7 +29,7 @@ export async function generateMetadata({
       url,
       images: [
         {
-          url: "https:
+          url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",
           width: 1200,
           height: 630,
           alt: "NoteHub",
@@ -39,7 +39,7 @@ export async function generateMetadata({
   };
 }
 
-
+// -------------------------------------------------------------
 
 export default async function FilterPage({
   params,
@@ -48,7 +48,7 @@ export default async function FilterPage({
   params: Promise<{ slug?: string[] }>;
   searchParams: Promise<{ q?: string; page?: string }>;
 }) {
-  
+  // ✅ розпаковуємо проміси
   const { slug } = await params;
   const sp = await searchParams;
 

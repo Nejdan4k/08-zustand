@@ -36,8 +36,8 @@ export default function NoteForm() {
         content: draft.content,
         tag: draft.tag,
       });
-      clearDraft();        
-      router.back();       
+      clearDraft();        // очистити draft лише після успішного створення
+      router.back();       // повернутися на попередню сторінку
     } catch (err) {
       console.error("Failed to create note:", err);
     } finally {
@@ -46,7 +46,7 @@ export default function NoteForm() {
   };
 
   const handleCancel = () => {
-    router.back(); 
+    router.back(); // draft НЕ очищаємо — так вимагає ТЗ
   };
 
   return (

@@ -3,7 +3,7 @@ import NoteForm from "@/components/NoteForm/NoteForm";
 import css from "./CreateNote.module.css";
 
 const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "http:
+  process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
 export const metadata: Metadata = {
   title: "NoteHub — Create note",
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     url: `${SITE_URL}/notes/action/create`,
     images: [
       {
-        url: "https:
+        url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",
         width: 1200,
         height: 630,
         alt: "NoteHub",

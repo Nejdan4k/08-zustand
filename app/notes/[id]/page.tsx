@@ -3,8 +3,8 @@ import { fetchNoteById } from "@/lib/api";
 import type { Metadata } from "next";
 import NoteDetailsClient from "./NoteDetails.client";
 
-
-
+// ----------------------------------------------------------------
+// SEO metadata (await params – тепер обовʼязково у Next.js 15)
 export async function generateMetadata({
   params,
 }: {
@@ -17,7 +17,7 @@ export async function generateMetadata({
   const description =
     note.content?.slice(0, 160) || "View note details in NoteHub.";
   const url = `${
-    process.env.NEXT_PUBLIC_SITE_URL ?? "http:
+    process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"
   }/notes/${id}`;
 
   return {
@@ -29,7 +29,7 @@ export async function generateMetadata({
       url,
       images: [
         {
-          url: "https:
+          url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",
           width: 1200,
           height: 630,
           alt: "NoteHub",
@@ -39,14 +39,14 @@ export async function generateMetadata({
   };
 }
 
-
-
+// ----------------------------------------------------------------
+// Сторінка з hydration React Query (також params як Promise)
 export default async function NoteDetailsPage({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) {
-  const { id } = await params; 
+  const { id } = await params; // ✅ розпаковуємо проміс
 
   const qc = new QueryClient();
   await qc.prefetchQuery({
